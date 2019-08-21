@@ -116,10 +116,16 @@ let regex2 = #"\\[A-Z]+[A-Za-z]+\.[a-z]+"#
 /// By default, Swift prints the struct name followed by all its properties... but only for structs
 struct Planet {
     var name: String
+    var role: String
     var sector: String
     var id: Int
     var priority: Int
 }
+
+let terra = Planet(name: "Terra", role: "ThroneWorld", sector: "Solar", id: 1, priority: 1)
+// default print displays: Planet(name: "Terra", role: "ThroneWorld", sector: "Solar", id: 1, priority: 1)
+print(terra)
+
 
 // SE_0195
 // Make Swift more script-like
@@ -200,7 +206,7 @@ struct Army {
 print("Not yet 5.1, cannot demo keypath lookup ")
 #endif
 
-// delete once understood
+// Hacking With Swift's example
 @dynamicMemberLookup
 struct Person {
     subscript(dynamicMember member: String) -> (_ input: String) -> Void {
