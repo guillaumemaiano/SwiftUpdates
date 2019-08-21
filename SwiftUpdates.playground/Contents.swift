@@ -125,7 +125,19 @@ struct Planet {
 let terra = Planet(name: "Terra", role: "ThroneWorld", sector: "Solar", id: 1, priority: 1)
 // default print displays: Planet(name: "Terra", role: "ThroneWorld", sector: "Solar", id: 1, priority: 1)
 print(terra)
+// Basic interpolation
+print("\(terra)")
 
+// use interpolation to extend print's behavior -- note: no different from just implementing the CustomStringConvertible protocol
+extension String.StringInterpolation {
+    mutating func appendInterpolation(_ aster: Planet) {
+        appendInterpolation("Planet \(aster.name) serves as \(aster.role) in Segmentum \(aster.sector).")
+    }
+}
+// Now, print displays:
+print(terra)
+// Fancy interpolation
+print("\(terra)")
 
 // SE_0195
 // Make Swift more script-like
