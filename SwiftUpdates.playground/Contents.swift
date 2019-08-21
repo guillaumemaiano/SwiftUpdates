@@ -113,6 +113,13 @@ let regex2 = #"\\[A-Z]+[A-Za-z]+\.[a-z]+"#
 
 // SE_0228
 
+/// By default, Swift prints the struct name followed by all its properties... but only for structs
+struct Planet {
+    var name: String
+    var sector: String
+    var id: Int
+    var priority: Int
+}
 
 // SE_0195
 // Make Swift more script-like
