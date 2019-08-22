@@ -142,6 +142,7 @@ print("\(terra)")
 // More power: use supplementary parameters
 extension String.StringInterpolation {
     mutating func appendInterpolation(_ fancyPrintAster: Planet, style: NumberFormatter.Style) {
+        // Reminder: The NumberFormatter class has a number of styles, including currency ($72.83), ordinal (1st, 12th), and spell out (five, forty-three).
         let formatter = NumberFormatter()
         formatter.numberStyle = style
 
@@ -158,6 +159,24 @@ extension String.StringInterpolation {
 }
 print(terra)
 print("\(terra, style: .spellOut)")
+
+// Note: we could easily build a morse interpolator ^^
+
+// Reminders about @autoclosure for what comes next
+// https://www.hackingwithswift.com/example-code/language/what-is-the-autoclosure-attribute
+// Nutshell: applied to a closure parameter for a function, and automatically creates a closure from an expression you pass in
+// *used inside Swift wherever code needs to be passed in and executed only if conditions are right*
+// --> the && operator uses @autoclosure to allow short-circuit evaluation
+// --> the assert() function uses it so that the assertion isn’t checked outside of debug mode
+
+func printTest2(_ result: @autoclosure () -> Void) {
+    print("Before")
+    result()
+    print("After")
+}
+// No need for braces, not very readable...
+printTest2(print("Hello"))
+
 // SE_0195
 // Make Swift more script-like
 // declare the presence of a "subscript dynamic member" (required declaration)
