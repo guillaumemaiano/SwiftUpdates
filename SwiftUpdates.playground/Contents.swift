@@ -177,6 +177,34 @@ func printTest2(_ result: @autoclosure () -> Void) {
 // No need for braces, not very readable...
 printTest2(print("Hello"))
 
+print("\n ------- \n")
+
+// More powerful power! -- interpolate an array's contents and execute passed-in code if array is empty
+
+extension String.StringInterpolation {
+    mutating func appendInterpolation(_ planets: [Planet], empty defaultValue:@autoclosure () -> String) {
+        if planets.count == 0 {
+            // executes the code passed in as an autoclosure
+            // via the defaultValue argument to build the interpolated litteral
+            appendLiteral(defaultValue())
+        } else {
+            appendLiteral("Planets in study: \n")
+            for planet in planets {
+                appendLiteral("--> \(planet.name) in Sector \(planet.sector) serving as \(planet.role)\n")
+            }
+        }
+    }
+}
+
+let annihilatedSystems: [Planet] = []
+//print("\(annihilatedSystems, empty: for x in 1...2 {"No planets available"})")
+
+let favoredSystems = [Planet(name: "Terra", role: "ThroneWorld", sector: "Solar", id: 1, priority: 1),
+                      Planet(name: "Maccrage", role: "Chapter HomeWorld", sector: "Ultima", id: 1, priority: 1)
+]
+
+print("\(favoredSystems, empty: "None")")
+
 // SE_0195
 // Make Swift more script-like
 // declare the presence of a "subscript dynamic member" (required declaration)
