@@ -139,6 +139,25 @@ print(terra)
 // Fancy interpolation
 print("\(terra)")
 
+// More power: use supplementary parameters
+extension String.StringInterpolation {
+    mutating func appendInterpolation(_ fancyPrintAster: Planet, style: NumberFormatter.Style) {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = style
+
+        appendInterpolation("Extended information brief -- \nPlanet \(fancyPrintAster.name) serves as \(fancyPrintAster.role) in Segmentum \(fancyPrintAster.sector).")
+        if let planetaryId = formatter.string(from: fancyPrintAster.id as NSNumber) {
+            appendLiteral(" It is denominated as \(fancyPrintAster.sector) \(planetaryId.capitalized).")
+        }
+        if let planetaryPriority = formatter.string(from: fancyPrintAster.priority as NSNumber) {
+            appendLiteral(" It holds priority \(planetaryPriority).")
+        } else {
+            appendLiteral(" It has unknown priority.")
+        }
+    }
+}
+print(terra)
+print("\(terra, style: .spellOut)")
 // SE_0195
 // Make Swift more script-like
 // declare the presence of a "subscript dynamic member" (required declaration)
