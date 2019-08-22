@@ -197,7 +197,15 @@ extension String.StringInterpolation {
 }
 
 let annihilatedSystems: [Planet] = []
-//print("\(annihilatedSystems, empty: for x in 1...2 {"No planets available"})")
+let loop: () -> String = { var empty = ""
+for _ in 1...3 {
+    empty.append("No planets available...")
+}
+    return empty
+}
+print("\(annihilatedSystems, empty: loop())")
+print("\(annihilatedSystems, empty: "None")")
+
 
 let favoredSystems = [Planet(name: "Terra", role: "ThroneWorld", sector: "Solar", id: 1, priority: 1),
                       Planet(name: "Maccrage", role: "Chapter HomeWorld", sector: "Ultima", id: 1, priority: 1)
