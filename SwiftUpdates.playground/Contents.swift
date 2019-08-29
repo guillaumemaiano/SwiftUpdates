@@ -82,7 +82,7 @@ executeInstructions(set: [ "Say hi", "Kill" ]) { result in
         print("An error occured during bread baking: \(error)")
     }
 }
-/// It's expected most uses of Result will use Swift.Error as the error type argument (loses safety of typed throws, gain variety of error enums -- GEM: but could also inherit errors form domain errors...)
+/// It's expected most uses of Result will use Swift.Error as the error type argument (loses safety of typed throws, gain variety of error enums -- GEM: but could also inherit errors from domain errors...)
 
 
 /// SE_0200
@@ -330,6 +330,80 @@ struct GEMBluetoothLightManager {
 }
 let bedroomLights = GEMBluetoothLightManager()
 bedroomLights.doStuff()
+
+// Paul Hudson's example is an HTMLComponent built on the fly using ExpressibleByStringLiteral, ExpressibleByStringInterpolation protocols and CustomStringConvertible for customization of  printing
+/// Criteria:
+/// Required protocols:
+/// * ExpressibleByStringLiteral 
+/// * ExpressibleByStringInterpolation
+/// Optional protocols:
+/// * CustomStringConvertible
+/// Requires a nested struct:
+/// - with name StringInterpolation conforming to StringInterpolationProtocol
+/// - with an initializer accepting two integers defining the expected amount of data
+/// Requires implementation of appendLiteral()
+/// Requires implementation of appendInterpolation() 
+/// Optional overloads of appendInterpolation()
+/// Requires TWO initializers:
+/// -> from string literals
+/// -> from string interpolations
+
+// Let's build some Markup!
+// OK, that's not a very useful / reusable component ;)
+struct MarkupComponent: 
+        ExpressibleByStringLiteral, 
+        ExpressibleByStringInterpolation, 
+        CustomStringConvertible {
+
+    struct StringInterpolation: StringInterpolationProtocol {
+        // start with an empty string
+        var output = ""
+
+        // allocate enough space to hold twice the amount of literal text
+        init(literalCapacity: Int, interpolationCount: Int) {
+            output.reserveCapacity(literalCapacity * 2)
+        }
+
+        // a hard-coded piece of text – just add it
+        mutating func appendLiteral(_ literal: String) {
+            print("Appending \(literal)")
+            output.append(literal)
+        }
+    
+        mutating func appendInterpolation(twitter: String) {
+            print("Appending \(twitter)")
+            output.append("[Hit me at @\(twitter)](https://twitter.com/\(twitter))");
+        }
+
+        // email using mailto
+        mutating func appendInterpolation(email: String) {
+            print("Appending \(email)")
+            output.append("[Email](mailto:\(email))")
+        }
+    }
+    // the finished text for this whole Markup component
+    let description: String
+
+    // create an instance from a *literal string*
+    init(stringLiteral value: String) {
+        description = value 
+    }
+
+    // create an instance from an *interpolated string*
+    init(stringInterpolation: StringInterpolation) {
+        description = stringInterpolation.output
+    }
+}
+
+let text: MarkupComponent = "Yell at me on Twitter \(twitter: "hateme"), or send some choice words through email: \(email: "hateme@hatemail.com")."
+print(text)
+
+// SE_0216
+// adds @dynamicCallable -> ability to mark a type as directly callable (synatctic sugar)
+let result = random(numberOfZeroes: 3)
+// becomes
+let result = random.dynamicallyCall(withKeywordArguments: ["numberOfZeroes": 3])
+// just as @dynamicMemberLookup, serves language interoperability with Js, Python etc.
 
 // Healthy reminder, in Swift, Int.max +1 crashes...
 // let number = Int.max
