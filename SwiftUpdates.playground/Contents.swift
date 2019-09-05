@@ -213,6 +213,7 @@ let favoredSystems = [Planet(name: "Terra", role: "ThroneWorld", sector: "Solar"
 
 print("\(favoredSystems, empty: "None")")
 
+// Introduced in Swift 4.2
 // SE_0195
 // Make Swift more script-like
 // declare the presence of a "subscript dynamic member" (required declaration)
@@ -404,6 +405,17 @@ let result = random(numberOfZeroes: 3)
 // becomes
 let result = random.dynamicallyCall(withKeywordArguments: ["numberOfZeroes": 3])
 // just as @dynamicMemberLookup, serves language interoperability with Js, Python etc.
+
+// needs attribute + one of the dynamicallyCall(withArguments or dynamicallyCall(withKeywordArguments methods
+// Example:
+@dynamicCallable
+struct Metatron {
+    let purpose: String = "I speak for God" // Master Televangelist
+    func dynamicallyCall(withKeywordArguments args) -> String {
+        
+    }
+
+}
 
 // Healthy reminder, in Swift, Int.max +1 crashes...
 // let number = Int.max
