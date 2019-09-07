@@ -1,2 +1,7 @@
+## User data
 xcuserdata
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+# Annoying Finder
 .DS_Store
