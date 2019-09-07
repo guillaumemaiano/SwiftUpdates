@@ -1,3 +1,4 @@
+## Self made, but on real projects, it's customary to curl -o .gitignore https://www.gitignore.io/api/swift
 ## User data
 xcuserdata
 ## Playgrounds
