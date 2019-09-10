@@ -29,3 +29,11 @@ struct Mecha {
 
 let wolf = Mecha(WeaponComplement: .energy, structurePool: 100)
 let titan = Mecha(WeaponComplement: .combined, structurePool: 500)
+
+/** Demo how closures work */
+var frozenValue = "princess"
+let closure = {
+    [frozenValue] in print("Hello \(frozenValue)")
+}
+frozenValue = "dragon"
+closure()
